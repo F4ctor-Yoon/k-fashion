@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/cropperjs@next"></script>
+    <style>
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            cursor: inherit;
+            display: block;
+        }
+
+        #image {
+            max-width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">이옷어때</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">이옷어때</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">홈</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">링크1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">링크2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">링크3</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="margin-top: 60px;">
+        <div class="row">
+            <div class="col-12 text-center" id="servResultLayer" style="display: none; font-size: larger;">
+                이 옷의 스타일은 <span id="servResult" style="font-weight: bold;"></span> 입니다.
+            </div>
+            <div class="col-12 text-center cropper-container" id="imageLayer" style="display: none;">
+                <cropper-canvas id="canvas" style="width:100%; height:500px;" background>
+                    <cropper-image id="cropperImage" src="" alt="Picture"></cropper-image>
+                    <cropper-shade hidden></cropper-shade>
+                    <cropper-handle action="select" plain></cropper-handle>
+                    <cropper-selection id="canvasSelection" initial-coverage="0.5" movable resizable zoomable>
+                        <cropper-grid role="grid" covered></cropper-grid>
+                        <cropper-crosshair centered></cropper-crosshair>
+                        <cropper-handle action="move" theme-color="rgba(255, 255, 255, 0.35)"></cropper-handle>
+                        <cropper-handle action="n-resize"></cropper-handle>
+                        <cropper-handle action="e-resize"></cropper-handle>
+                        <cropper-handle action="s-resize"></cropper-handle>
+                        <cropper-handle action="w-resize"></cropper-handle>
+                        <cropper-handle action="ne-resize"></cropper-handle>
+                        <cropper-handle action="nw-resize"></cropper-handle>
+                        <cropper-handle action="se-resize"></cropper-handle>
+                        <cropper-handle action="sw-resize"></cropper-handle>
+                    </cropper-selection>
+                </cropper-canvas>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar fixed-bottom bg-body-tertiary">
+        <div class="container-fluid justify-content-end">
+            <span class="btn btn-success btn-file">
+                📷 촬영 <input type="file" id="mypic" accept="image/*" capture="camera">
+            </span>
+            &nbsp;&nbsp;
+            <button class="btn btn-primary" onclick="saveCropImage();">🔍 찾기</button>
+        </div>
+    </nav>
+
+    <script>
+        var input = document.querySelector('input[type=file]');
+        var file;
+
+        input.onchange = function () {
+            file = input.files[0];
+            displayAsImage(file);
+        };
+
+        function displayAsImage(file) {
+            var imgURL = URL.createObjectURL(file),
+                img = document.createElement('img');
+
+            img.onload = function () {
+                URL.revokeObjectURL(imgURL);
+            };
+            img.src = imgURL;
+            $("#imageLayer").show("fast");
+            $("cropper-image").attr("src", imgURL);
+        }
+
+        function saveCropImage() {
+            var formData = new FormData();
+            formData.append("image", file);
+            $.ajax({
+                url: 'http://127.0.0.1:8081/serving',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    // console.log(data.answer);
+                    $('#servResultLayer').show();
+                    $('#servResult').text(data.answer);
+                },
+                error() {
+                    console.log('Upload error');
+                },
+            });
+        }
+    </script>
+</body>
+
+</html>
