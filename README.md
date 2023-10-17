@@ -26,7 +26,7 @@
 <table>
   <thead>
     <tr>
-      <td>"이미지 데이터 전처리" - <b>[문성우](https://github.com/Leo-Moooon)</b></td>
+      <td>"이미지 데이터 전처리" - <b><a href="https://github.com/Leo-Moooon">문성우</a></b></td>
     </tr>
   </thead>
   <tbody>
@@ -47,7 +47,7 @@
 <table>
   <thead>
     <tr>
-      <td>"모델링, 하이퍼파라미터 튜닝" - <b>[채성혁](https://github.com/xxonyuk)</b></td>
+      <td>"모델링, 하이퍼파라미터 튜닝" - <b><a href="https://github.com/xxonyuk">채성혁</a></b></td>
     </tr>
   </thead>
   <tbody>
@@ -67,7 +67,7 @@
 <table>
   <thead>
     <tr>
-      <td>"이미지 데이터 크롤링, 모델 서빙, 웹 서비스 제작" - <b>[윤인수](https://github.com/F4ctor-Yoon)</b></td>
+      <td>"이미지 데이터 크롤링, 모델 서빙, 웹 서비스 제작" - <b><a href="https://github.com/F4ctor-Yoon">윤인수</a></b></td>
     </tr>
   </thead>
   <tbody>
@@ -84,7 +84,7 @@
 <table>
   <thead>
     <tr>
-      <td>"이미지 크롭, 모델 & 전처리 서칭" - <b>[신준섭](https://github.com/A1zania)</b></td>
+      <td>"이미지 크롭, 모델 & 전처리 서칭" - <b><a href="https://github.com/A1zania">신준섭</a></b></td>
     </tr>
   </thead>
   <tbody>
@@ -104,7 +104,7 @@
 <table>
   <thead>
     <tr>
-      <td>"이미지 크롭" - <b>[홍영택](https://github.com/hytgithub007)</b></td>
+      <td>"이미지 크롭" - <b><a href="https://github.com/hytgithub007">홍영택</a></b></td>
     </tr>
   </thead>
   <tbody>
