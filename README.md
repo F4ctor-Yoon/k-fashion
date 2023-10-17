@@ -120,6 +120,7 @@
 </table>
 <hr>
 
-## [AI HUB 데이터 K-Fashion 이미지 데이터를 사용한 스타일 분류 모델 개발 리더보드 챌린지](https://competition.aihub.or.kr/hackathon/scheduleDetail/5)
-![image](https://github.com/F4ctor-Yoon/k-fashion/assets/13534979/731b5409-2ab4-4bc5-85ea-e0d68b21cf21)<br>
+## AI HUB 데이터 K-Fashion 이미지 데이터를 사용한 스타일 분류 모델 개발 리더보드 챌린지
+![result](https://github.com/F4ctor-Yoon/k-fashion/assets/13534979/dc3c2314-0115-4cdf-873c-294c993dcd81)<br>
+
 
